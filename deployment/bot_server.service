@@ -1,0 +1,15 @@
+[Unit]
+Description=Bot Service
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/home/go-jedi/github.com/go-jedi/go-telegram-clean-architecture
+ExecStart=/home/go-jedi/github.com/go-jedi/go-telegram-clean-architecture/.bin/telegram_bot
+Restart=always
+RestartSec=4
+StandardOutput=inherit
+EnvironmentFile=/home/go-jedi/github.com/go-jedi/go-telegram-clean-architecture/.env
+
+[Install]
+WantedBy=multi-user.target
