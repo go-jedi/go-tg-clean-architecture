@@ -38,6 +38,7 @@ func (a *App) initDeps(ctx context.Context) error {
 		a.initServerProvider,
 		a.initLogger,
 		a.initTelegramBotAPI,
+		a.initValidator,
 		a.initTelegramBot,
 	}
 
@@ -84,6 +85,12 @@ func (a *App) initTelegramBotAPI(_ context.Context) error {
 	}
 
 	a.botAPI = botAPI
+
+	return nil
+}
+
+func (a *App) initValidator(ctx context.Context) error {
+	a.serverProvider.Validator(ctx)
 
 	return nil
 }

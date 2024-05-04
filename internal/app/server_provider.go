@@ -11,6 +11,7 @@ import (
 	"github.com/go-jedi/platform_common/pkg/db"
 	"github.com/go-jedi/platform_common/pkg/db/pg"
 	"github.com/go-jedi/platform_common/pkg/db/transaction"
+	"github.com/go-playground/validator/v10"
 )
 
 type serverProvider struct {
@@ -20,6 +21,8 @@ type serverProvider struct {
 
 	dbClient  db.Client
 	txManager db.TxManager
+
+	validator *validator.Validate
 
 	userRepository repository.UserRepository
 	userService    service.UserService
@@ -93,4 +96,12 @@ func (s *serverProvider) TelegramConfig() config.TelegramConfig {
 	}
 
 	return s.telegramConfig
+}
+
+func (s *serverProvider) Validator(_ context.Context) *validator.Validate {
+	if s.validator == nil {
+		s.validator = validator.New(validator.WithRequiredStructEnabled())
+	}
+
+	return s.validator
 }

@@ -22,6 +22,7 @@ func (s *serverProvider) UserService(ctx context.Context) service.UserService {
 		s.userService = userService.NewService(
 			s.UserRepository(ctx),
 			s.TxManager(ctx),
+			s.validator,
 		)
 	}
 
